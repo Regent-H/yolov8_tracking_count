@@ -1,0 +1,62 @@
+
+# Train/val/test sets as 1) dir: path/to/imgs, 2) file: path/to/imgs.txt, or 3) list: [path/to/imgs1, path/to/imgs2, ..]
+path: dataset_traffic # dataset root dir
+train: images  # train images (relative to 'path') 128 images
+val: images # val images (relative to 'path') 128 images
+#test:  # test images (optional)
+
+# Classes
+names:
+  0: car
+  1: truck
+  2: motorcycle
+  3: bus
+
+# 数据增强配置
+transforms:
+  - Resize:  # 调整图像大小
+      p: 1.0  # 概率
+      size: 640  # 目标大小
+
+  - RandomAffine:  # 随机仿射变换
+      p: 0.5  # 概率
+      translate_percent: [0.0, 0.1]  # 平移
+      scale: [0.9, 1.1]  # 缩放
+      rotate: [0, 30]  # 旋转角度
+
+  - HSVHue:  # 随机调整色调
+      p: 0.5  # 概率
+      hue_delta: 5  # 色调变化范围
+
+  - ToGray:  # 转换为灰度图
+      p: 0.0  # 概率
+
+  - RandomBrightnessContrast:  # 随机调整亮度和对比度
+      p: 0.5  # 概率
+      brightness_delta: 32  # 亮度变化范围
+      contrast_delta: 0.2  # 对比度变化范围
+
+  - JpegCompression:  # 随机调整 JPEG 压缩质量
+      p: 0.5  # 概率
+      quality: [80, 95]  # 压缩质量范围
+
+  - Blur:  # 随机模糊
+      p: 0.1  # 概率
+      blur_limit: 7  # 模糊程度
+
+  - OpticalDistortion:  # 光学畸变
+      p: 0.1  # 概率
+      distort_limit: 0.05  # 畸变程度
+
+  - GridDistortion:  # 网格畸变
+      p: 0.1  # 概率
+
+  - HorizontalFlip:  # 随机水平翻转
+      p: 0.5  # 概率
+
+  - VerticalFlip:  # 随机垂直翻转
+      p: 0.1  # 概率
+
+  - RandomPerspective:  # 随机透视变换
+      p: 0.1  # 概率
+      distort_limit: 0.1  # 变换程度

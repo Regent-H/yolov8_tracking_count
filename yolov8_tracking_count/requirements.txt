@@ -1,0 +1,5 @@
+ultralytics
+cvzone
+deep-sort-realtime
+scikit-image
+filterpy
